@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Step 1: Load the CSV file
+file_path = r"C:\temp\jupyter\API_SP.POP.TOTL_DS2_en_csv_v2_31753.csv"
+data = pd.read_csv(file_path, skiprows=4)
+
+# Step 2: Filter the row for 'World' population
+world_data = data[data['Country Name'] == 'World']
+
+# Step 3: Set the range of years (modify these as needed)
+year_from = 2000
+year_to = 2020
+
+# Step 4: Extract population data for the years in the range
+years = [str(year) for year in range(year_from, year_to + 1) if str(year) in world_data.columns]
+population = world_data[years].values.flatten()
+
+# Step 5: Plot a bar chart with years on the x-axis and world population on the y-axis
+plt.figure(figsize=(10, 6))
+plt.bar(years, population, color='skyblue', edgecolor='black')
+
+# Step 6: Customize the plot
+plt.xlabel('Year')
+plt.ylabel('World Population (billions)')
+plt.title(f'World Population from {year_from} to {year_to}')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Step 7: Display the bar chart
+plt.show()
